@@ -10,18 +10,17 @@
 struct ListNode* reverseList(struct ListNode* head){
     if(head == NULL)
         return head;
-    struct ListNode *pre, *nex, *cur;
-    pre = NULL;
-    cur = head;
-    while(cur != NULL){
-        //printf("%d ", cur->val);
-        nex = cur->next;
-        cur->next = pre;
-        pre = cur;
-        cur = nex;
+    struct ListNode *a, *b, *c;
+    a = NULL;
+    b = head;
+    
+    while(c != NULL){
+        c= b->next;
+        b->next = a;
+        a = b;
+        b = c;
         
     }
-    //while(pre != NULL){
-    //    printf("%d ", pre->val);
-    return pre;
+    head = a;
+    return head;
 }
