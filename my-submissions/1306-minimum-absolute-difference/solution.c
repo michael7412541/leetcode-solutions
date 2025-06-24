@@ -16,22 +16,37 @@ int compare(const void* a, const void* b) {
 }
 
 int** minimumAbsDifference(int* arr, int arrSize, int* returnSize, int** returnColumnSizes) {
-    int i = 0, j = 0, count = 0, min_diff = 0;
+    long long i = 0, j = 0, count = 0, min_diff = 0;
     
     *returnColumnSizes = (int*)malloc(arrSize * sizeof(int));
-    qsort(arr, arrSize, sizeof(int), compare);
-   /* for(i = 0; i < arrSize; i++)
+    //qsort(arr, arrSize, sizeof(int), compare);
+    int *output = (int*)malloc(sizeof(int)*arrSize);
+    //int *counting = (int*)malloc(sizeof(int)*2000001);
+    long long counting[2000001] = {0};//很重要!!! 一定要先設成0
+
+    for(i = 0; i < arrSize; i++)
     {
-        //*answer = (int*)malloc(2*sizeof(int));
-        //answer[i] = (int*)malloc(2*sizeof(int));
-        //*returnColumnSizes[i] = 2;
-        //(*returnColumnSizes)[i] = 2;
-        for(j = i + 1; j < arrSize; j++)
-        {
-            if(arr[i] > arr[j])
-                swap(&arr[i], &arr[j]);
-        }
-    }*/
+        arr[i] += 1000000; // 0 <= new arr <= 10^6+10^6 = 2000000
+        counting[arr[i]]++; 
+    }
+    for(i = 1; i < 2000001; i++)
+    {
+        counting[i] += counting[i-1];
+    }
+    for(i = arrSize - 1; i >= 0; i--)
+    {
+        output[counting[arr[i]] - 1] = arr[i];
+        counting[arr[i]]--;
+    }
+    for(i = 0; i < arrSize; i++)
+    {
+        arr[i] = output[i] - 1000000;
+    }
+    
+    free(output);
+    //free(counting);
+    
+    
     min_diff = arr[1] - arr[0];
     for(i = 0; i < arrSize - 1; i++)
     {
