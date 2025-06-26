@@ -22,14 +22,27 @@ int** minimumAbsDifference(int* arr, int arrSize, int* returnSize, int** returnC
     //qsort(arr, arrSize, sizeof(int), compare);
     int *output = (int*)malloc(sizeof(int)*arrSize);
     //int *counting = (int*)malloc(sizeof(int)*2000001);
-    long long counting[2000001] = {0};//很重要!!! 一定要先設成0
+    int min = arr[0], max = arr[0], shift = 0, range = 0;
+    for(i = 0; i < arrSize; i++)
+    {
+        if(arr[i] > max)
+            max = arr[i];
+        
+        if(arr[i] < min)
+            min = arr[i];
+    }
+
+    range = max - min + 1;
+    int *counting = (int*)calloc(range, sizeof(int));
+    
+    //long long counting[2000001] = {0};//很重要!!! 一定要先設成0
 
     for(i = 0; i < arrSize; i++)
     {
-        arr[i] += 1000000; // 0 <= new arr <= 10^6+10^6 = 2000000
+        arr[i] -= min; // 0 <= new arr <= 10^6+10^6 = 2000000
         counting[arr[i]]++; 
     }
-    for(i = 1; i < 2000001; i++)
+    for(i = 1; i < range; i++)
     {
         counting[i] += counting[i-1];
     }
@@ -40,7 +53,7 @@ int** minimumAbsDifference(int* arr, int arrSize, int* returnSize, int** returnC
     }
     for(i = 0; i < arrSize; i++)
     {
-        arr[i] = output[i] - 1000000;
+        arr[i] = output[i] + min;
     }
     
     free(output);
