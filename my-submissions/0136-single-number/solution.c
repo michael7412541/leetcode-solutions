@@ -1,4 +1,4 @@
-#define BUCKETSIZE 1000
+/*#define BUCKETSIZE 1000
 typedef struct Node {
     int val;
     struct Node *next;
@@ -65,6 +65,18 @@ int singleNumber(int* nums, int numsSize) {
         hashadd(set, nums[i]);
     }
     answer = findsingle(set);
+    return answer;
+    
+}*/
+
+int singleNumber(int* nums, int numsSize) {
+    if(nums == NULL || numsSize == 0)
+        return 0;
+    int i = 0, answer = nums[0];
+    for(i = 1; i < numsSize; i++)
+    {
+        answer = answer ^ nums[i];
+    }
     return answer;
     
 }
