@@ -9,26 +9,29 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-
-void inorder(struct TreeNode *node, int *arr, int *count) {
-    if(node == NULL)
-        return;
-    
-    inorder(node->left, arr, count);
-    arr[(*count)] = node->val;
-    (*count)++;
-    inorder(node->right, arr, count);
-}
-
 int* inorderTraversal(struct TreeNode* root, int* returnSize) {
-    int *arr = (int*)malloc(sizeof(int)*100);
-    int count = 0;
-
-    inorder(root, arr, &count);
+    struct TreeNode *stack[100];
+    int *answer = (int*)malloc(sizeof(int)*100);
+    int top = -1, count = 0;
+    struct TreeNode *cur;
+    cur = root;
+    
+    while(cur != NULL || top != -1){
+        while(cur != NULL){
+            stack[++top] = cur;
+            cur = cur->left;
+        }
+        
+        cur = stack[top--];
+        answer[count] = cur->val;
+        count++;
+        
+        cur = cur->right;
+            
+    }
     
     *returnSize = count;
-    return arr;
+    
+     
+    return answer;
 }
-
-
-
