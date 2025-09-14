@@ -6,41 +6,18 @@
  *     struct TreeNode *right;
  * };
  */
-
-int l = 0, r = 0;
-
-
-void traverse_dfs_left_preorder(struct TreeNode* node){
-    printf("%d %d\n", l, r);
-    if(node->left != NULL){
-        traverse_dfs_left_preorder(node->left);
-        l++;
-    }
-    
-    if(node->right != NULL){
-        traverse_dfs_left_preorder(node->right);
-        r++;
-    }
+int calculate_depth(struct TreeNode* node, int count) {
+    if(node == NULL)
+        return count;
+    else
+        count++;
+    int r = calculate_depth(node->right, count);
+    int l = calculate_depth(node->left, count);
+    if(r > l)
+        return r;
+    else
+        return l;
 }
-
-
-
-
-
-int maxDepth(struct TreeNode* root){
-  // Root being null means tree doesn't exist.
-  if (root == NULL)
-    return 0;
-  
-  // Get the depth of the left and right subtree 
-  // using recursion.
-  int leftDepth = maxDepth(root->left);
-  int rightDepth = maxDepth(root->right);
-
-  // Choose the larger one and add the root to it.
-  if (leftDepth > rightDepth)
-    return leftDepth + 1;
-  else
-    return rightDepth + 1;
+int maxDepth(struct TreeNode* root) {
+    return calculate_depth(root, 0);
 }
-
