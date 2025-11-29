@@ -15,5 +15,5 @@ int firstBadVersion(int n) {
     if(left == right)
         return left;
     else
-        return 1;
+        return 0;
 }
