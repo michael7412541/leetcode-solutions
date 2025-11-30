@@ -2,56 +2,53 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 int* searchRange(int* nums, int numsSize, int target, int* returnSize) {
-    int right = numsSize - 1, left = 0, middle = 0;
-    int *answer = malloc(sizeof(int)*2);
-    
-    bool find = false;
-    while(left <= right){
-        middle = left + (right -left)/2;
-        if(nums[middle] < target){
-            left = middle + 1;
-        }
-        else if(nums[middle] == target){
-            find = true;
-            break;
-        }
-        else{
-            right = middle - 1;
-        }
-    }
-    if(find == true){
-        int L = left, M = 0, R = middle, min, max;
-        while(L < R){
-            M = (L + R - 1)/2;
-            if(nums[M] == target){
-                R = M;
-            }
-            else{
-                L = M + 1;
-            }
-        }
-        min = L;
-        L = middle;
-        R = right;
-        while(L < R){
-            M = (L + R + 1)/2;
-            if(nums[M] == target){
-                L = M;
-            }
-            else{
-                R = M - 1;
-            }
-        }
-        max = R;
-            
-        answer[0] = min;
-        answer[1] = max;
-    }
-    else{
+    int *answer = (int*)malloc(sizeof(int)*2);
+    if(numsSize < 1){
+        *returnSize = 2;
         answer[0] = -1;
         answer[1] = -1;
+        return answer;
     }
-    *returnSize = 2;
+    int L = 0, R = numsSize - 1, mid = 0;
+    int start = 0, end = 0;
+    while(L < R){
+        mid = L + (R - L)/2;
+        if(nums[mid] < target)
+            L = mid + 1;
+        else
+            R = mid;
+    }
+    if(nums[L] != target){
+        start = -1;
+    }
+    else{
+        start = L;
+    }
+    L = 0;
+    R = numsSize - 1;
+    while(L < R){
+        mid = L + (R - L)/2;
+        if(nums[mid] <= target)
+            L = mid + 1;
+        else
+            R = mid;
+    }
     
+    if (L < numsSize && nums[L] <= target)
+        L++;
+    end = L - 1;
+    if(end < start) end = start;
+    if(end >= numsSize) end = numsSize - 1;
+    
+    
+    answer[0] = start;
+    if(start == -1)
+        answer[1] = -1;
+    else
+        answer[1] = end;
+    
+    *returnSize = 2;
     return answer;
+    
+        
 }
