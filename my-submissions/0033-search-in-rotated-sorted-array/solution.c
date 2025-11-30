@@ -1,31 +1,29 @@
 int search(int* nums, int numsSize, int target) {
-    int i = 0, shift = 0;
-    int temp[numsSize];
-    for(i = 1; i < numsSize; i++){
-        if(nums[i] < nums[i-1])
-            break;
-    }
-    shift = i;
-    for(i = 0; i < numsSize; i++){
-        temp[i] = nums[(i + shift) % numsSize];
-    }
-    for(i = 0; i < numsSize; i++){
-        //printf("%d ", temp[i]);
-    }
+    int left = 0, right = numsSize - 1, mid = 0;
     
-    int left = 0, right = numsSize - 1, middle = 0;
     while(left <= right){
-        middle = left + (right - left)/2;
-        if(temp[middle] > target){
-            right = middle - 1;
-        }
-        else if(temp[middle] < target){
-            left = middle + 1;
+         mid  = left + (right - left)/2;
+        //printf("L:num[%d] = %d, R:num[%d] = %d, M:num[%d] = %d\n", left,nums[left],right,nums[right],mid,nums[mid]);
+       
+        if(target == nums[mid])
+            return mid;
+        
+        if(nums[left] <= nums[mid]){
+            if(nums[left] <= target && target < nums[mid]){
+                right = mid - 1;
+            }
+            else{
+                left = mid + 1;
+            }
         }
         else{
-            return (middle + shift) % numsSize;
+            if(nums[mid] < target && target <= nums[right]){
+                left = mid + 1;
+            }
+            else{
+               right = mid - 1; 
+            }
         }
-        
     }
-    return -1;//non-used
+    return -1;
 }
