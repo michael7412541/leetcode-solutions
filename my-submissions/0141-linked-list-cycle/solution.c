@@ -6,22 +6,16 @@
  * };
  */
 bool hasCycle(struct ListNode *head) {
-    struct ListNode *x1, *x2;
-    x1 = head;
-    if(head == NULL)
+    if(head == NULL || head->next == NULL)
         return false;
-    if(head->next)
-        if(head->next->next)
-            x2 = head->next->next;
-        else
-            return false;
-    else
-        return false;
-    while(x1 && x1->next && x2->next && x2->next->next != NULL){
-        x1 = x1->next;
-        x2 = x2->next->next;
-        if(x1 == x2)
+    struct ListNode *slow = head, *fast = head;
+    //while(slow != NULL && fast != NULL){
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if(slow != NULL && fast != NULL && slow == fast){
             return true;
+        }
     }
     return false;
 }
