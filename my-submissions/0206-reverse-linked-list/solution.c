@@ -56,7 +56,7 @@ struct ListNode* reverse(struct ListNode **head, int count) {
 
     // 遞迴呼叫，count 保持不變，下一個未處理節點會在 for 迴圈中被找到
     return reverse(head, count + 1);
-}*/
+}
 
 struct ListNode* reverse(struct ListNode *head) {
     if(head == NULL || head->next == NULL)
@@ -71,5 +71,24 @@ struct ListNode* reverse(struct ListNode *head) {
 
 struct ListNode* reverseList(struct ListNode* head) {
     return reverse(head);
+}*/
+
+struct ListNode* reverseList(struct ListNode* head) {
+    if(head == NULL || head->next == NULL)
+        return head;
+    
+    struct ListNode *cur = head;
+    struct ListNode *next = head;
+    struct ListNode *prev = NULL;
+    while(cur != NULL){
+        next = cur->next;
+        cur->next = prev;
+        prev= cur;
+        cur = next;
+        
+    }
+    return prev;
+    
 }
+
 
