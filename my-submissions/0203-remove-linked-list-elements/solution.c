@@ -5,43 +5,33 @@
  *     struct ListNode *next;
  * };
  */
-
-
-void print_node(struct ListNode * node){
-    while(node != NULL){
-        printf("%d ", node->val);
-        node = node->next;
-    }
-}
-
-struct ListNode* removeElements(struct ListNode* head, int val){
-    struct ListNode *head_ref, *head_1;
+//只要「有可能會動到 head」，就該考慮用 dummy
+struct ListNode* removeElements(struct ListNode* head, int val) {
     if(head == NULL)
-        return head;
-    head_ref = head; //NODE 1 = 7
-    head_1 = head->next; //NODE 2 = null
-    while(head != NULL){
-        if(head_ref->val == val){
-            head_ref = head_ref->next; //NODE 2 = null
-            head = head_ref; // NODE 2 =null
-            if(head != NULL){
-                head_1 = head->next;
-            }
+        return NULL;
+    struct ListNode dummy;
+    dummy.val = -1;
+    dummy.next = head;
+    
+    struct ListNode *cur = head;
+    struct ListNode *prev = &dummy;
+    struct ListNode *temp;
+    while(cur != NULL){
+        //printf("cur = %d, prev = %d\n", cur->val, prev->val);
+        if(cur->val == val){
+            prev->next = cur->next;
+            temp = cur;
+            
+            cur = cur->next;
+            //printf("found");
+            free(temp);
         }
-        else if(head_1 == NULL){
-            break;
+        else{
+            cur = cur->next;
+            prev = prev->next;
         }
-        else if(head_1->val == val){
-            head->next = head_1->next;
-        }
-        else
-            head = head->next;
-            if(head != NULL){
-                head_1 = head->next;
-            }
 
-                    
     }
-    print_node(head);
-    return head_ref;
+    
+    return dummy.next;
 }
