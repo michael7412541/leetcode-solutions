@@ -5,39 +5,23 @@
  *     struct ListNode *next;
  * };
  */
-void sort(struct ListNode* small, struct ListNode* big) {
-    
-    if(small->next == NULL) {
-        small->next = big;
-        return;
-    }
-    if(big == NULL) {
-        return;
-    }
-    
-    if(small->next->val > big->val) {
-        struct ListNode *node1 = small->next, *node2 = big->next;
-        small->next = big;
-        big->next = node1;
-        sort(big, node2);
-    }
-    else {
-        sort(small->next, big);
-    }
-}
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
-    struct ListNode *head;
-    if(list1 == NULL)
-        return list2;
-    if(list2 == NULL)
-        return list1;
-    if(list1->val <= list2->val) {
-        head = list1;
-        sort(list1, list2);
+    struct ListNode dummy;
+    dummy.next = NULL;
+    struct ListNode *tail = &dummy;
+    while(list1 || list2){
+        struct ListNode *newNode = malloc(sizeof(struct ListNode));
+        newNode->next = NULL;
+        if((list1 == NULL && list2 != NULL)|| (list2 != NULL && list1->val > list2->val)){
+            newNode->val = list2->val;
+            list2 = list2->next;
+        }
+        else{
+            newNode->val = list1->val;
+            list1 = list1->next;
+        }
+        tail->next = newNode;
+        tail = newNode;
     }
-    else {
-        head = list2;
-        sort(list2, list1);
-    }
-    return head;
+    return dummy.next;
 }
