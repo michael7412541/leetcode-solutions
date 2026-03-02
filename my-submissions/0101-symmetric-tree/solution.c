@@ -6,27 +6,24 @@
  *     struct TreeNode *right;
  * };
  */
-
-
-    
-bool preorder_traversal(struct TreeNode *node1, struct TreeNode *node2){
-    bool a, b;
-    if(node1 != NULL && node2 == NULL) return false;
-    else if(node1 == NULL && node2 != NULL) return false;
-    else if (node1 == NULL && node2 == NULL) return true;
-    else if(node1->val == node2-> val){
-        a = preorder_traversal(node1->left, node2->right);
-        b = preorder_traversal(node1->right, node2->left);
-        
-        return a*b;
+bool isMirror(struct TreeNode *tree1, struct TreeNode *tree2){
+    if(tree1 == NULL && tree2 == NULL)
+        return true;
+    else if(tree1 != NULL && tree2 != NULL){
+        if(tree1->val == tree2->val)
+            return isMirror(tree1->left, tree2->right) && isMirror(tree1->right, tree2->left);
+        else
+            return false;
     }
-    else return false;
-        
-    
+    else
+        return false;
 }
 
-
-bool isSymmetric(struct TreeNode* root){
-    
-    return preorder_traversal(root, root);
+bool isSymmetric(struct TreeNode* root) {
+    if(root->right != NULL && root->left != NULL)
+        return isMirror(root->left, root->right);
+    else if(root->right == NULL && root->left == NULL)
+        return true;
+    else
+        return false;
 }
