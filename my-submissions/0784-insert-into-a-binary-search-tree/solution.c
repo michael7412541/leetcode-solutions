@@ -6,7 +6,7 @@
  *     struct TreeNode *right;
  * };
  */
-struct TreeNode* insertIntoBST(struct TreeNode* root, int val) {
+/*struct TreeNode* insertIntoBST(struct TreeNode* root, int val) {
     if(root == NULL){
         struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));
         node->val = val;
@@ -43,5 +43,44 @@ struct TreeNode* insertIntoBST(struct TreeNode* root, int val) {
         prev->left = node;
     }
 
+    return root;
+}*/
+void helper(struct TreeNode* root, int val){ 
+    if(root->val > val){
+        if(root->left != NULL)
+            helper(root->left, val);
+        else{
+            struct TreeNode *node = malloc(sizeof(struct TreeNode));
+            node->val = val;
+            node->left = NULL;
+            node->right = NULL;
+            root->left = node;
+        }
+    }
+    else{
+        if(root->right != NULL)
+            helper(root->right, val);
+        else{
+            struct TreeNode *node = malloc(sizeof(struct TreeNode));
+            node->val = val;
+            node->left = NULL;
+            node->right = NULL;
+            root->right = node;
+        }
+    }
+}
+
+struct TreeNode* insertIntoBST(struct TreeNode* root, int val){
+    if(root == NULL){
+        struct TreeNode *node = malloc(sizeof(struct TreeNode));
+        node->val = val;
+        node->left = NULL;
+        node->right = NULL;
+        return node;
+    }
+    
+    helper(root, val);
+    
+    
     return root;
 }
