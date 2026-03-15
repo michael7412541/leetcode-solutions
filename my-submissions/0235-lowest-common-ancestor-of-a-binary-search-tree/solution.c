@@ -8,31 +8,28 @@
  */
 
 struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
-    int small, large;
-    if(p->val > q->val){
-        //int temp = p->val;//破壞結構
-       // p->val = q->val;
-       // q->val = temp;
-        small = q->val;
-        large = p->val;
+    /*if(root == p || root == q || root == NULL)
+        return root;
+    
+    struct TreeNode *L = lowestCommonAncestor(root->left, p, q);
+    struct TreeNode *R = lowestCommonAncestor(root->right, p, q);
+    
+    if(L != NULL && R != NULL)
+        return root;
+    else
+        return L == NULL ? R : L;*/
+    if(root == NULL)
+        return NULL;
+    
+    int small = 0,large = 0;
+    small = p->val > q->val ? q->val : p->val;
+    large = p->val > q->val ? p->val : q->val;
+    if(root->val >= small && root->val <= large)
+        return root;
+    else if(root->val > small && root->val > large){
+        return lowestCommonAncestor(root->left, p, q); 
     }
     else{
-        small = p->val;
-        large = q->val;
+        return lowestCommonAncestor(root->right, p, q);
     }
-    struct TreeNode *cur = root;
-     printf("cur = %d, p = %d, q=%d\n", cur->val, p->val, q->val);
-    while(cur != NULL){
-        printf("cur = %d, p = %d, q=%d\n", cur->val, p->val, q->val);
-        if((cur->val >= small && cur->val <= large) || (cur->val == small || cur->val == large)){
-            return cur;
-        }
-        else if(cur->val > small && cur->val > large){
-            cur = cur->left;
-        }
-        else{
-            cur = cur->right;
-        }
-    }
-    return root;
 }                                                                                                                                                                                                                                                                                                      
