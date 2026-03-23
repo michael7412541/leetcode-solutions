@@ -1,21 +1,19 @@
 int pivotIndex(int* nums, int numsSize) {
-    //int left = 0, right = numsSize-1;
-    int left_sum = 0, sum = 0;
-    int i;
-    for(i = 0; i < numsSize; i++)
-    {
+    if(numsSize < 0)
+        return -1;
+    if(numsSize == 1)
+        return 0;
+    
+    int left = 0, right = 0, i = 0, sum = 0;
+    for(i = 0; i < numsSize; i++){
         sum += nums[i];
     }
-    printf("%d", sum);
-    for(i = 0; i < numsSize; i++)
-    {
-        
-        if((sum - nums[i]- left_sum) == left_sum)
-            break;
-        left_sum += nums[i];
+    for(i = 0; i < numsSize; i++){
+        if(i > 0)
+            left += nums[i-1];
+        right = sum - left - nums[i];
+        if(left == right)
+            return i;
     }
-    if(i < numsSize)
-        return i;
-    else        
-        return -1;
+    return -1;
 }
