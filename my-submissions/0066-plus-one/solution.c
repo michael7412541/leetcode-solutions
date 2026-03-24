@@ -2,35 +2,34 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
-    int i = digitsSize - 1;
-    while(i >= 0)
-    {
+    int i = 0, carry = 0;
+    while(i < digitsSize){
         if(digits[i] != 9)
             break;
-        i--;
+        i++;
     }
-    
-    if(i < 0)
-    {
-        int* answer = (int*)malloc((digitsSize+1) * sizeof(int));
-        memset(answer, 0, (digitsSize+1) * sizeof(int));
+    if(i == digitsSize){//全部都是9才會需要多一個位元
+        *returnSize = digitsSize + 1;
+        int *answer = malloc(sizeof(int) * (*returnSize));
         answer[0] = 1;
-        *returnSize = digitsSize+1;
+        for(i = 1; i < (*returnSize); i++)
+            answer[i] = 0;
         return answer;
     }
-    else
-    {
-        
-        int* answer = (int*)malloc(digitsSize * sizeof(int));
-        memset(answer, 0, (digitsSize) * sizeof(int));
-        memcpy(answer, digits, digitsSize * sizeof(int));
-        answer[i]++;
-        for(int j = i + 1; j<digitsSize;j++)
-            answer[j] = 0;
-        
+    else{
         *returnSize = digitsSize;
+        int *answer = malloc(sizeof(int) * (*returnSize));
+        
+        for(i = digitsSize - 1; i >= 0; i--){
+            if(i == digitsSize - 1){
+                answer[i] = (digits[i] + 1) % 10;
+                carry = (digits[i] + 1) / 10;
+            }
+            else{
+                answer[i] = (digits[i] + carry) % 10;
+                carry = (digits[i] + carry) / 10;
+            }
+        }
         return answer;
     }
-    
-    
 }
