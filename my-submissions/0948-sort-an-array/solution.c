@@ -2,44 +2,48 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 
-void swap(int *a, int *b)
-{
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-void heapify(int *nums, int i, int length)
-{
-    int largest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
+void heapify(int *heap, int size, int index){
     
-    if(left < length && nums[left] > nums[largest])
-        largest = left;
-    
-    if(right < length && nums[right] > nums[largest])
-        largest = right;
-    
-    if(largest != i)
-    {
-        swap(&nums[i], &nums[largest]);
-        heapify(nums, largest, length);
+    int smallest = index;
+    while(1){
+        int L = index * 2 + 1;
+        int R = index * 2 + 2;
+        smallest = index;
+        
+        if(L < size && heap[L] < heap[smallest])
+            smallest = L;
+        
+        if(R < size && heap[R] < heap[smallest])
+            smallest = R;
+        
+        if(smallest == index)
+            break;
+        
+        int temp = heap[index];
+        heap[index] = heap[smallest];
+        heap[smallest] = temp;
+        
+        index = smallest;
     }
-    
+    return ;
 }
+
 int* sortArray(int* nums, int numsSize, int* returnSize) {
-    if(nums == NULL || numsSize == 0)
-        return NULL;
-    int i = 0;
-    for(i = numsSize/2 - 1; i >= 0; i--)
-    {
-        heapify(nums, i, numsSize);
-    }
-    for(i = numsSize - 1; i > 0; i--)
-    {
-        swap(&nums[i], &nums[0]);
-        heapify(nums, 0, i);
-    }
+    int *answer = malloc(sizeof(int) * numsSize);// min heap
+    //int *heap = malloc(sizeof(int) * numsSize);
+    int size = numsSize;
     *returnSize = numsSize;
-    return nums;
+    
+    for(int i = numsSize / 2 - 1; i >= 0; i--){
+        heapify(nums, numsSize, i);
+    }
+    
+    for(int i = 0; i < numsSize; i++){
+        answer[i] = nums[0];
+        nums[0] = nums[size - 1];
+        size--;
+        heapify(nums, size, 0);
+    }
+    
+    return answer;
 }
