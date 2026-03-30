@@ -1,24 +1,20 @@
-void swap(int *a, int *b)
-{
-    int temp;
-    temp = *a;
-    *a = *b;
-    *b = temp;
+void reverse(int *nums, int size){
+    int left = 0, right = size - 1;
+    while(left < right){
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+        
+        left++;
+        right--;
+    }
 }
+
+
 void rotate(int* nums, int numsSize, int k) {
-    k = k % numsSize;
-    int i = 0;
-    int *answer = (int*)malloc(sizeof(int)*numsSize);
-    for(i = 0; i < numsSize; i++)
-    {
-        answer[i] = nums[(numsSize - k + i) % numsSize];
-        //printf(" %d", answer[i]);
-    }
-    for(i = 0; i < numsSize; i++)
-    {
-        //answer[i] = nums[(numsSize - k + i) % numsSize];
-        //printf(" %d", answer[i]);
-        nums[i] = answer[i];
-    }
-    
+    int shift = k % numsSize;
+    reverse(nums, numsSize);
+    reverse(nums, shift);
+    reverse(&nums[shift], numsSize - shift);
+
 }
