@@ -1,24 +1,30 @@
-int lengthOfLongestSubstring(char* s) {
-    if(s[0] == '\0')
-        return 0;
-    int left = 0, right =0 , max = INT_MIN, count = 0, i = 0, hash[128] = {0};
-     for(int i = 0; i < 128; i++)
-        hash[i] = -1;
-
-    while(s[right] != '\0'){
-        //check hash map
-        if(hash[s[right]] >= 0){
-            
-            left = hash[s[right]] + 1 > left ? hash[s[right]] + 1 : left;
-            hash[s[right]] = right;
-        }
-        else{
-            hash[s[right]] = right;
-        }
-        if(right - left + 1> max)
-            max = right - left + 1;
-        right++;
+int cal_hash(int *hash, int size){
+    int count = 0;
+    for(int i = 0; i < size; i++){
+        if(hash[i] > 1)
+            return -1;
+        else if(hash[i] > 0)
+            count++;
     }
-    return max;
+    return count;
+}
+int lengthOfLongestSubstring(char* s) {
     
+    int hash[128] = {0};
+    int left =0, right = 0, answer = INT_MIN;
+    int size = strlen(s);
+    if(size == 0)
+        return 0;
+    for(right = 0; right < size; right++){
+        hash[s[right]]++;
+        
+        while(cal_hash(hash, 128) < 0 && left  <right){//shrink
+            hash[s[left]]--;
+            left++;
+        }
+        int temp = cal_hash(hash, 128);
+        if(temp > answer)
+            answer = temp;
+    }
+    return answer;
 }
