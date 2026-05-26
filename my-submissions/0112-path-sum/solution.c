@@ -10,13 +10,19 @@ bool hasPathSum(struct TreeNode* root, int targetSum) {
     if(root == NULL)
         return false;
     else{
-        if(root->left == NULL && root->right == NULL && root->val == targetSum)
+        if(root->left == NULL && root->right == NULL && targetSum == root->val)
             return true;
         else
-            return (hasPathSum(root->left, targetSum - root->val) 
-                    || hasPathSum(root->right, targetSum - root->val));
+            return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);
     }
 }
+
+
+
+
+
+
+
 
 /*2️⃣ leaf + 剛好等於 target
 if(root->left == NULL && root->right == NULL && root->val == targetSum)
