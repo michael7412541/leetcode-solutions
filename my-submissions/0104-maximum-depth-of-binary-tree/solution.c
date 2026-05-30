@@ -11,16 +11,25 @@
 int maxDepth(struct TreeNode* root) {
     if(root == NULL)
         return 0;
-    int L = maxDepth(root->left);
-    int R = maxDepth(root->right);
+    int left = maxDepth(root->left);
+    int right = maxDepth(root->right);
 
-    if(L == 0 && R == 0)
-        return 1;
-    else if(L != 0 && R != 0)
-        return L > R ? L + 1 : R + 1;
-    else
-        return L == 0 ? R + 1 : L + 1;
+    return (left > right ? left : right) + 1;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 因為：
 
