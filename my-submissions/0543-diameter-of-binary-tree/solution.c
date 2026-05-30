@@ -6,28 +6,25 @@
  *     struct TreeNode *right;
  * };
  */
+int max = INT_MIN;
 
-int result = 0;
-int maxdepth(struct TreeNode *root){
-    if(root == NULL)
-        return 0;
 
-    int L = maxdepth(root->left);
-    int R = maxdepth(root->right);
 
-    if(L + R  > result)
-        result = L + R ;
-
-    return L > R ? L + 1 : R + 1;
-}
-int diameterOfBinaryTree(struct TreeNode* root) {
-    result = 0;
+int helper(struct TreeNode *root){
     if(root == NULL)
         return 0;
     
-    int temp = maxdepth(root);
+    int left = helper(root->left);
+    int right = helper(root->right);
 
-    return result;
+    if(left + right > max)
+        max = left + right;
+
+    return (left > right ? left : right) + 1;
 }
 
-
+int diameterOfBinaryTree(struct TreeNode* root) {
+    max = 0;
+    int c = helper(root);
+    return max;
+}
