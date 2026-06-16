@@ -8,58 +8,41 @@ typedef struct {
     int x;
     int y;
 } Point;
-
 int** updateMatrix(int** mat, int matSize, int* matColSize, int* returnSize, int** returnColumnSizes) {
-    Point *queue = (Point*)malloc(sizeof(Point) * matSize * matColSize[0]);
-    int i = 0, j = 0;
-    //int **map = (int**)malloc(sizeof(int*) * matSize * matColSize[0]);
-    int **map = (int**)malloc(sizeof(int*) * matSize );
-    *returnColumnSizes = (int*)malloc(sizeof(int) * matSize);//*
+    if(mat == NULL || matSize == 0){
+        return NULL;
+    }
+    int dir[4][2] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    int **answer = malloc(sizeof(int*) * matSize);
+    Point queue[10000], cur;
+    int head = -1, tail = -1, count, x1, y1;
+
     *returnSize = matSize;
-    for(i = 0 ; i < matSize; i++) {
-        map[i] = (int*)calloc(matColSize[0], sizeof(int));
-        (*returnColumnSizes)[i] = matColSize[0];
-        for(j = 0; j < matColSize[0]; j++) {
-            if(mat[i][j] != 0)
-                map[i][j] = matSize * matColSize[0] + 1;
-        }
-    }
-    int head = 0, tail = 0;
-    for(i = 0 ; i < matSize; i++) {
-        for(j = 0; j < matColSize[0]; j++) {
-            if(mat[i][j] == 0) {
-                queue[tail++] = (Point){i,j};
-             }
-        }
-    }
-    
-    //tail 永遠指向「下一個空位」，不是最後一個元素
-    //head 永遠指向「下一個要出隊的元素」
-    //queue 的有效元素是 [head, tail-1]
-    
-    int dir[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
-    
-    while(head < tail) {
-        Point p;
-        int tx, ty;
-        p = queue[head++];// 把每個0拿出來擴散
-        
-        for(int k = 0; k < 4; k++) {
-            tx = p.x + dir[k][0];
-            ty = p.y + dir[k][1];
-            if(tx >= 0 && ty >= 0 && tx < matSize && ty < matColSize[0]) {
-                if(map[tx][ty] > map[p.x][p.y] + 1) {
-                    map[tx][ty] = map[p.x][p.y] + 1;
-                    queue[tail++] = (Point){tx, ty};
-                }
-                
+    *returnColumnSizes = malloc(sizeof(int) * matSize);
+    for(int i = 0; i < matSize; i++){
+        answer[i] = malloc(sizeof(int) * matColSize[i]);
+        (*returnColumnSizes)[i] = matColSize[i];
+        for(int j = 0; j < matColSize[i]; j++){
+            answer[i][j] = -1;
+            if(mat[i][j] == 0){
+                queue[++tail] = (Point){i,j};
+                answer[i][j] = 0;
             }
         }
     }
+
+    while(head < tail){
+        cur = queue[++head];
+        for(int k = 0; k < 4; k++){
+            x1 = cur.x + dir[k][0];
+            y1 = cur.y + dir[k][1];
+            if(x1 >= 0 && x1 < matSize && y1 >= 0 && y1 < matColSize[0] && answer[x1][y1] == -1){
+                answer[x1][y1] = answer[cur.x][cur.y] + 1; 
+                queue[++tail] = (Point){x1,y1};
+            }
+                
+        }
+    }
     
-    free(queue);
-    
-    
-    return map;
-    
+    return answer;
 }
