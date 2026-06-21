@@ -1,42 +1,41 @@
-void dfs(char **board, int x_size, int y_size, int x1, int y1){
-    if(x1 < 0 || x1 >= x_size || y1 < 0 || y1 >= y_size)
-        return;
-    if(board[x1][y1] != 'O')
+void dfs(char **board, int x, int y, int x_size, int y_size){
+    if(x >= x_size || x < 0 || y >= y_size || y < 0)
         return;
     
-    board[x1][y1] = 'A';
-
-    dfs(board, x_size, y_size, x1 + 1, y1);
-    dfs(board, x_size, y_size, x1 - 1, y1);
-    dfs(board, x_size, y_size, x1, y1 + 1);
-    dfs(board, x_size, y_size, x1, y1 - 1);
-}
-void solve(char** board, int boardSize, int* boardColSize) {
-    if(board == NULL || boardSize == 0 || boardColSize == NULL)
+    if(board[x][y] != 'O')
         return;
+    
+    board[x][y] = '@';
+    dfs(board, x + 1, y, x_size, y_size);
+    dfs(board, x - 1, y, x_size, y_size);
+    dfs(board, x, y + 1, x_size, y_size);
+    dfs(board, x, y - 1, x_size, y_size);
+}
 
-    for(int i = 0; i < boardSize; i++){
-        if(board[i][0] == 'O'){
-            dfs(board, boardSize, boardColSize[0], i, 0);
-        }
-        if(board[i][boardColSize[0] - 1] == 'O'){
-            dfs(board, boardSize, boardColSize[0], i, boardColSize[0] - 1);
-        }
+void solve(char** board, int boardSize, int* boardColSize) {
+    int i , j, m = boardSize, n = boardColSize[0];
+    bool temp;
+    for(i = 0; i < m; i++){
+        if(board[i][0] == 'O') dfs(board, i, 0, m, n);
+        if(board[i][n-1] == 'O') dfs(board, i, n-1, m, n);
     }
-    for(int j = 0; j < boardColSize[0]; j++){
-        if(board[0][j] == 'O'){
-            dfs(board, boardSize, boardColSize[0], 0, j);
-        }
-        if(board[boardSize - 1][j] == 'O'){
-            dfs(board, boardSize, boardColSize[0], boardSize - 1, j);
-        }
+
+    for(j = 0; j < n; j++){
+        if(board[0][j] == 'O') dfs(board, 0, j, m, n);
+        if(board[m-1][j] == 'O') dfs(board, m-1, j, m, n);
     }
-    for(int i = 0; i < boardSize; i++){
-        for(int j = 0; j < boardColSize[0]; j++){
+    for(i = 0; i < m; i++){
+        for(j = 0; j < n; j++){
             if(board[i][j] == 'O')
                 board[i][j] = 'X';
-            else if(board[i][j] == 'A')
+        }
+    }
+
+    for(i = 0; i < m; i++){
+        for(j = 0; j < n; j++){
+            if(board[i][j] == '@')
                 board[i][j] = 'O';
         }
     }
+
 }
