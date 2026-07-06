@@ -1,13 +1,12 @@
 int missingNumber(int* nums, int numsSize) {
-    if(nums == NULL || numsSize == 0)
-        return 0;
-    int i = 0, result1 = 0, result0 = 0;
-    
-    for(i = 0; i < numsSize; i++)
-    {
-        result0 = result0 ^ i;
-        result1 = result1 ^ nums[i];
+    int hash[numsSize + 1];
+    memset(hash, 0, sizeof(hash));
+    for(int i = 0; i < numsSize; i++){
+        hash[nums[i]]++;
     }
-    result0 = result0 ^ numsSize;
-    return result1 ^ result0;
+    for(int i = 0; i < numsSize + 1; i++){
+        if(hash[i] == 0)
+            return i;
+    }
+    return -1;
 }
