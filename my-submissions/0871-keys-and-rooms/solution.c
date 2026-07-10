@@ -1,30 +1,20 @@
-bool checkroom(int** rooms, int room, int *roomsSize, int* map) {
-    if(map[room] == 0)
-        return false;
-    for(int k = 0; k < roomsSize[room]; k++) {
-        if( map[rooms[room][k]] == 0){ //沒有去過才需要去
-            map[rooms[room][k]] = 1;
-            checkroom(rooms, rooms[room][k], roomsSize, map);
-        }
+void dfs(int **rooms, int roomsSize, int *roomsColSize, int *visited, int start){
+    if(visited[start] == 1)
+        return;
+    visited[start] = 1;
+    for(int i = 0; i < roomsColSize[start]; i++){
+        dfs(rooms, roomsSize, roomsColSize, visited, rooms[start][i]);
     }
-    return true;
     
 }
 bool canVisitAllRooms(int** rooms, int roomsSize, int* roomsColSize) {
-    int *map = (int*)calloc(roomsSize, sizeof(int));
-    map[0] = 1;
-    int i = 0, j = 0;
-    bool answer;
-    checkroom(rooms, 0, roomsColSize, map);
-    for(i = 0; i < roomsSize; i++) {
-        if(map[i] == 0)
+    int *visited = malloc(sizeof(int) * roomsSize);
+    memset(visited, 0, sizeof(int) * roomsSize);
+    dfs(rooms, roomsSize, roomsColSize, visited, 0);
+
+    for(int i = 0; i < roomsSize; i++)
+        if(visited[i] == 0)
             return false;
-    }
-    /*for(i = 0; i < roomsSize; i++) {
-        answer = checkroom(rooms, i, roomsColSize, map);
-        if(answer == false)
-            return false;
-    }*/
     
     return true;
 }
