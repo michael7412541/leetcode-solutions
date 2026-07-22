@@ -1,42 +1,39 @@
-int find(int x, int *parent){
-    if(x != parent[x])
-        parent[x] = find(parent[x], parent);
-    return parent[x];
-}
-
-int compare(void const *a, void const *b){
-    int *edgeA = *(int**)a;
-    int *edgeB = *(int**)b;
-
-    return edgeA[2] - edgeB[2];
-}
 int minCostConnectPoints(int** points, int pointsSize, int* pointsColSize) {
-    int num = pointsSize * (pointsSize - 1)/2;
-    int **edge = malloc(sizeof(int*) * num), count = 0, answer = 0;
-    int *parent = malloc(sizeof(int) * pointsSize);
+    int dist[pointsSize];
+    int visited[pointsSize];
+    memset(visited, 0, sizeof(visited));
+    int min = INT_MAX, min_idx = 0, x = points[0][0], y = points[0][1];
+    dist[0] = 0;
+    visited[0] = 1;
+    for(int i = 1; i < pointsSize; i++){
+        dist[i] = abs(points[i][0] - x) + abs(points[i][1] - y);
+    }
+    for(int i = 1; i < pointsSize; i++){
+        min = INT_MAX;
+        for(int j = 1; j < pointsSize; j++){
+            if(visited[j] == 1)
+                continue;
+            
+            if(dist[j] < min){
+                min = dist[j];
+                min_idx = j;
+            }
+        }
 
-    for(int i = 0; i < pointsSize; i++){
-        parent[i] = i;
-        
-        for(int j = i + 1; j < pointsSize; j++){
-            edge[count] = malloc(sizeof(int) * 3);
-            edge[count][0] = i;
-            edge[count][1] = j;
-            edge[count][2] = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]) ;
-            count++;
+        visited[min_idx] = 1;
+        for(int k = 1; k < pointsSize; k++){
+            if(visited[k] == 1)
+                continue;
+            int cost = abs(points[k][0] - points[min_idx][0]) + abs(points[k][1] - points[min_idx][1]);
+            dist[k] = cost > dist[k] ? dist[k] : cost;
         }
     }
-    
-    qsort(edge, count, sizeof(int*), compare);
 
-    for(int i = 0; i < count; i++){
-        int rootA = find(edge[i][0], parent);
-        int rootB = find(edge[i][1], parent);
-        if(rootA != rootB){
-            parent[rootB] = rootA;
-            answer += edge[i][2];
-        }
+    int answer = 0;
+    for(int i = 0; i < pointsSize; i++){
+        answer += dist[i];
     }
 
     return answer;
+
 }
