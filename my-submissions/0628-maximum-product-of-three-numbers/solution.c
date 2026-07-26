@@ -1,0 +1,10 @@
+int compare(void const *a, void const *b){
+    return *(int*)a - *(int*)b;
+}
+int maximumProduct(int* nums, int numsSize) {
+    qsort(nums, numsSize, sizeof(int), compare);
+    int product1 = nums[numsSize - 1] * nums[numsSize - 2] * nums[numsSize -3];
+    int product2 = nums[0] * nums[1] * nums[numsSize - 1];
+
+    return product1 > product2 ? product1 : product2;
+}
