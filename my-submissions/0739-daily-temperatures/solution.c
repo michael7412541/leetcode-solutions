@@ -2,23 +2,21 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 int* dailyTemperatures(int* temperatures, int temperaturesSize, int* returnSize) {
-    int *answer = (int*)calloc(temperaturesSize, sizeof(int));
-    int *stack = (int*)malloc(temperaturesSize*sizeof(int));
-    *returnSize = temperaturesSize;
-    int i = 0, count = 0;
-    int top = -1;
-    for(i = 0; i < temperaturesSize; i++){
-                
-        while(top >= 0 && temperatures[i] > temperatures[stack[top]]){
-            int prev = stack[top];
-            //pop
+    int idx, stack[temperaturesSize], top = -1;
+    int *answer = malloc(sizeof(int) * temperaturesSize);
+    memset(answer, 0, sizeof(int) * temperaturesSize);
+    stack[++top] = 0;
+    for(int i = 0; i < temperaturesSize; i++){
+        idx = stack[top];
+        while(top >= 0 && temperatures[i] > temperatures[idx]){
+            
+            answer[idx] = i - idx;
             top--;
-            answer[prev] = i - prev;
-                
+            idx = top >= 0 ? stack[top] : -1;
+
         }
-        //push
-        top++;
-        stack[top] = i;
+        stack[++top] = i;
     }
+    *returnSize = temperaturesSize;
     return answer;
 }
