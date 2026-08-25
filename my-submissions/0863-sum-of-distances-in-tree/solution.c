@@ -6,44 +6,49 @@ struct Edge{
     int to;
     struct Edge *next;
 };
-int calculate_size(struct Edge **graph, int index, int parent, int *size, int *subtree){
 
-    size[index] = 1;
-
+void dfs_distance(int *size, struct Edge **graph, int index, int parent, int *answer, int n){
+    if(graph[index] == NULL){
+        return ;
+    }
+    
     for(struct Edge *e = graph[index]; e; e = e->next){
-        if(e->to == parent)
+        int to = e->to;
+        if(parent == to)
             continue;
-        size[index] += calculate_size(graph, e->to, index, size, subtree);
-        subtree[index] += subtree[e->to];
-        subtree[index] += size[e->to];
+        
+        answer[to] = answer[index] - size[to] + (n - size[to]);
+        dfs_distance(size, graph, to, index, answer, n);
+    }
+    
+}
+
+int dfs_size(int *size, struct Edge **graph, int index, int parent, int *answer){
+    if(graph[index] == NULL){
+        size[index] = 1;
+        return 1;
+    }
+    size[index] = 1;
+    for(struct Edge *e = graph[index]; e; e = e->next){
+        int to = e->to;
+        if(to == parent)
+            continue;
+        size[index] += dfs_size(size, graph, to, index, answer);
+        answer[index] += size[to] + answer[to];  
     }
     return size[index];
 }
 
-void calculate_answer(struct Edge **graph, int index, int parent, int *answer, int *size, int *subtree, int n){
-    if(index != 0)
-        answer[index] = answer[parent] - size[index] + (n - size[index]);
-    
-    for(struct Edge *e = graph[index]; e; e = e->next){
-        if(e->to == parent)
-            continue;
-        calculate_answer(graph, e->to, index, answer, size, subtree, n);
-    }
-    
-}
-
-
 int* sumOfDistancesInTree(int n, int** edges, int edgesSize, int* edgesColSize, int* returnSize) {
-    struct Edge **graph = malloc(sizeof(struct Edge*)*n);
-    int *answer = malloc(sizeof(int) * n);
-    int *size = malloc(sizeof(int) * n);
-    int *subtree = malloc(sizeof(int) * n);
+    struct Edge **graph = malloc(sizeof(struct Edge*) * n);
+    int *size = malloc(sizeof(int)*n);
+    int *answer = malloc(sizeof(int)*n);
     for(int i = 0; i < n; i++){
         graph[i] = NULL;
-        answer[i] = 0; 
+        answer[i] = 0;
         size[i] = 0;
-        subtree[i] = 0;
     }
+
     for(int i = 0; i < edgesSize; i++){
         int from = edges[i][0];
         int to = edges[i][1];
@@ -56,13 +61,10 @@ int* sumOfDistancesInTree(int n, int** edges, int edgesSize, int* edgesColSize, 
         new1->to = from;
         new1->next = graph[to];
         graph[to] = new1;
-
-
     }
-    calculate_size(graph, 0, n+1, size, subtree);
-    
-    answer[0] = subtree[0];
-    calculate_answer(graph, 0, n+1, answer, size, subtree, n);
+
+    int temp = dfs_size(size, graph, 0, -1, answer);
+    dfs_distance(size, graph, 0, -1, answer, n);
     *returnSize = n;
-    return answer; 
+    return answer;
 }
