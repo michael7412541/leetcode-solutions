@@ -1,48 +1,49 @@
-int helper(int **matrix, int x, int y, int x_size, int y_size, int **visited, int target){
-    if(x >= x_size || y >= y_size || x < 0 || y < 0)
+int max = 0;
+int max_l(int a, int b, int c, int d){
+    if(a >= b && a >= c && a >= d) return a;
+    if(b >= c && b >= a && b >= d) return b;
+    if(c >= b && c >= a && c >= d) return c;
+    return d;
+}
+int dfs(int** matrix, int m, int n, int x, int y, int **dp) {
+    if(x >= m || y >= n || x < 0 || y < 0)
         return 0;
-
-    if(matrix[x][y] <= target)
-        return 0;
-
-    if(visited[x][y] != -1)
-        return visited[x][y] + 1;
     
-    visited[x][y] = 0;
-    int max = 0;
-    int up = helper(matrix, x + 1, y, x_size, y_size, visited, matrix[x][y]);
-    int dn = helper(matrix, x - 1, y, x_size, y_size, visited, matrix[x][y]);
-    int right = helper(matrix, x, y + 1, x_size, y_size, visited, matrix[x][y]);
-    int left = helper(matrix, x, y - 1, x_size, y_size, visited, matrix[x][y]);
+    if(dp[x][y] != -1)
+        return dp[x][y];
+    int a = 0 ,b = 0 ,c = 0, d = 0;
 
-    if(max < up) max = up;
-    if(max < dn) max = dn;
-    if(max < left) max = left;
-    if(max < right) max = right;
+    if(x + 1 < m && matrix[x][y] < matrix[x+1][y])
+        a = dfs(matrix, m, n, x + 1, y, dp);
+    if(x - 1 >= 0 && matrix[x][y] < matrix[x-1][y])
+        b = dfs(matrix, m, n, x - 1, y, dp);
+    if(y + 1 < n && matrix[x][y] < matrix[x][y+1])
+        c = dfs(matrix, m, n, x, y + 1, dp);
+    if(y - 1 >= 0 && matrix[x][y] < matrix[x][y-1])
+        d = dfs(matrix, m, n, x, y - 1, dp);
 
-    visited[x][y] = max;
-    return max + 1;
+    
+    dp[x][y] = max_l(a, b, c, d) + 1;
+    if(dp[x][y] > max)
+        max = dp[x][y];
+    return dp[x][y]; 
+    
+     
 }
 int longestIncreasingPath(int** matrix, int matrixSize, int* matrixColSize) {
-    int count = 0, answer = 0;
-    int **visited = malloc(sizeof(int*) * matrixSize);
-
+    int **dp = malloc(sizeof(int*) * matrixSize * matrixColSize[0]);
     for(int i = 0; i < matrixSize; i++){
-        visited[i] = malloc(sizeof(int) * matrixColSize[i]);
+        dp[i] = malloc(sizeof(int) * matrixColSize[i]);
         for(int j = 0; j < matrixColSize[i]; j++){
-            visited[i][j] = -1;
+            dp[i][j] = -1;
         }
     }
-
+    max = 0;
     for(int i = 0; i < matrixSize; i++){
         for(int j = 0; j < matrixColSize[i]; j++){
-            count = helper(matrix, i, j, matrixSize, matrixColSize[i], visited, -1);
-            if(count > answer)
-                answer = count;
+        dfs(matrix, matrixSize, matrixColSize[i], i, j, dp);
         }
     }
-
-   
-    free(visited);
-    return answer;
+    
+    return max;
 }
