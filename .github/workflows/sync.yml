@@ -1,9 +1,13 @@
 name: Sync LeetCode Submissions
 
 on:
-  workflow_dispatch:  # 支援手動一鍵觸發
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # 每天 UTC 00:00 自動同步一次
+    - cron: '0 0 * * *'
+
+# 加入此段以授權寫入 Repository
+permissions:
+  contents: write
 
 jobs:
   build:
