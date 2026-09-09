@@ -9,7 +9,7 @@ long long countCommas(long long n) {
     long long answer = 0;
     for(int i = 0; i < 6; i++){
         s += 999 * pow(1000, i);
-        printf("i = %d, s = %ld, p = %ld\n", i, s, pow(1000, i));
+        //printf("i = %d, s = %ld, p = %ld\n", i, s, pow(1000, i));
         if(n >= s){
             answer += (s - pow(1000, i) + 1) * i;
         }
