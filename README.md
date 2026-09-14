@@ -23,4 +23,12 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0836-rectangle-overlap](https://github.com/michael7412541/leetcode-solutions/tree/master/0836-rectangle-overlap) |
+## Array
+|  |
+| ------- |
+| [0835-image-overlap](https://github.com/michael7412541/leetcode-solutions/tree/master/0835-image-overlap) |
+## Matrix
+|  |
+| ------- |
+| [0835-image-overlap](https://github.com/michael7412541/leetcode-solutions/tree/master/0835-image-overlap) |
 <!---LeetCode Topics End-->
