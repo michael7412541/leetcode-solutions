@@ -33,7 +33,7 @@ int trap(int* height, int heightSize) {
         stack[++top] = i;
     }*/
     for(int i = 0; i < heightSize; i++){
-        printf("left = %d, right = %d\n", left[i], right[i]);
+        //printf("left = %d, right = %d\n", left[i], right[i]);
         if(left[i] != 0 && right[i] != 0){
             //printf("i = %d, %d\n", i, min(left[i], right[i]) - height[i]);
             answer += (min(left[i], right[i]) - height[i]);
