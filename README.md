@@ -8,6 +8,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0131-palindrome-partitioning](https://github.com/michael7412541/leetcode-solutions/tree/master/0131-palindrome-partitioning) |
 | [0316-remove-duplicate-letters](https://github.com/michael7412541/leetcode-solutions/tree/master/0316-remove-duplicate-letters) |
 | [0402-remove-k-digits](https://github.com/michael7412541/leetcode-solutions/tree/master/0402-remove-k-digits) |
+| [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
 ## Dynamic Programming
 |  |
 | ------- |
@@ -47,6 +48,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0085-maximal-rectangle](https://github.com/michael7412541/leetcode-solutions/tree/master/0085-maximal-rectangle) |
 | [0316-remove-duplicate-letters](https://github.com/michael7412541/leetcode-solutions/tree/master/0316-remove-duplicate-letters) |
 | [0402-remove-k-digits](https://github.com/michael7412541/leetcode-solutions/tree/master/0402-remove-k-digits) |
+| [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
 ## Greedy
 |  |
 | ------- |
@@ -68,4 +70,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0042-trapping-rain-water](https://github.com/michael7412541/leetcode-solutions/tree/master/0042-trapping-rain-water) |
+## Bracket Sequences
+|  |
+| ------- |
+| [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
 <!---LeetCode Topics End-->
