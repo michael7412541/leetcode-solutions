@@ -26,6 +26,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0836-rectangle-overlap](https://github.com/michael7412541/leetcode-solutions/tree/master/0836-rectangle-overlap) |
 | [1401-circle-and-rectangle-overlapping](https://github.com/michael7412541/leetcode-solutions/tree/master/1401-circle-and-rectangle-overlapping) |
+| [3550-smallest-index-with-digit-sum-equal-to-index](https://github.com/michael7412541/leetcode-solutions/tree/master/3550-smallest-index-with-digit-sum-equal-to-index) |
 ## Geometry
 |  |
 | ------- |
@@ -38,6 +39,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0084-largest-rectangle-in-histogram](https://github.com/michael7412541/leetcode-solutions/tree/master/0084-largest-rectangle-in-histogram) |
 | [0085-maximal-rectangle](https://github.com/michael7412541/leetcode-solutions/tree/master/0085-maximal-rectangle) |
 | [0835-image-overlap](https://github.com/michael7412541/leetcode-solutions/tree/master/0835-image-overlap) |
+| [3550-smallest-index-with-digit-sum-equal-to-index](https://github.com/michael7412541/leetcode-solutions/tree/master/3550-smallest-index-with-digit-sum-equal-to-index) |
 ## Matrix
 |  |
 | ------- |
