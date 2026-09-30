@@ -9,7 +9,7 @@ int minOperations(int* nums, int numsSize, int x) {
     int current_sum = 0, min = INT_MAX, left = 0, right = 0;
     for(right = 0; right < numsSize; right++){
         current_sum += nums[right];
-        while(current_sum > target){
+        while(left <= right && current_sum > target){
             current_sum -= nums[left++];
         }
         if(current_sum == target){
