@@ -4,6 +4,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## String
 |  |
 | ------- |
+| [0022-generate-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/0022-generate-parentheses) |
 | [0093-restore-ip-addresses](https://github.com/michael7412541/leetcode-solutions/tree/master/0093-restore-ip-addresses) |
 | [0131-palindrome-partitioning](https://github.com/michael7412541/leetcode-solutions/tree/master/0131-palindrome-partitioning) |
 | [0316-remove-duplicate-letters](https://github.com/michael7412541/leetcode-solutions/tree/master/0316-remove-duplicate-letters) |
@@ -13,12 +14,14 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Dynamic Programming
 |  |
 | ------- |
+| [0022-generate-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/0022-generate-parentheses) |
 | [0042-trapping-rain-water](https://github.com/michael7412541/leetcode-solutions/tree/master/0042-trapping-rain-water) |
 | [0085-maximal-rectangle](https://github.com/michael7412541/leetcode-solutions/tree/master/0085-maximal-rectangle) |
 | [0131-palindrome-partitioning](https://github.com/michael7412541/leetcode-solutions/tree/master/0131-palindrome-partitioning) |
 ## Backtracking
 |  |
 | ------- |
+| [0022-generate-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/0022-generate-parentheses) |
 | [0093-restore-ip-addresses](https://github.com/michael7412541/leetcode-solutions/tree/master/0093-restore-ip-addresses) |
 | [0131-palindrome-partitioning](https://github.com/michael7412541/leetcode-solutions/tree/master/0131-palindrome-partitioning) |
 ## Math
@@ -79,6 +82,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Bracket Sequences
 |  |
 | ------- |
+| [0022-generate-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/0022-generate-parentheses) |
 | [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/michael7412541/leetcode-solutions/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
 ## Simulation
 |  |
