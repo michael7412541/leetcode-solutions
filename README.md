@@ -47,6 +47,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0085-maximal-rectangle](https://github.com/michael7412541/leetcode-solutions/tree/master/0085-maximal-rectangle) |
 | [0835-image-overlap](https://github.com/michael7412541/leetcode-solutions/tree/master/0835-image-overlap) |
 | [1658-minimum-operations-to-reduce-x-to-zero](https://github.com/michael7412541/leetcode-solutions/tree/master/1658-minimum-operations-to-reduce-x-to-zero) |
+| [3483-unique-3-digit-even-numbers](https://github.com/michael7412541/leetcode-solutions/tree/master/3483-unique-3-digit-even-numbers) |
 | [3550-smallest-index-with-digit-sum-equal-to-index](https://github.com/michael7412541/leetcode-solutions/tree/master/3550-smallest-index-with-digit-sum-equal-to-index) |
 ## Matrix
 |  |
@@ -104,6 +105,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1658-minimum-operations-to-reduce-x-to-zero](https://github.com/michael7412541/leetcode-solutions/tree/master/1658-minimum-operations-to-reduce-x-to-zero) |
+| [3483-unique-3-digit-even-numbers](https://github.com/michael7412541/leetcode-solutions/tree/master/3483-unique-3-digit-even-numbers) |
 ## Binary Search
 |  |
 | ------- |
@@ -116,4 +118,12 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1658-minimum-operations-to-reduce-x-to-zero](https://github.com/michael7412541/leetcode-solutions/tree/master/1658-minimum-operations-to-reduce-x-to-zero) |
+## Recursion
+|  |
+| ------- |
+| [3483-unique-3-digit-even-numbers](https://github.com/michael7412541/leetcode-solutions/tree/master/3483-unique-3-digit-even-numbers) |
+## Enumeration
+|  |
+| ------- |
+| [3483-unique-3-digit-even-numbers](https://github.com/michael7412541/leetcode-solutions/tree/master/3483-unique-3-digit-even-numbers) |
 <!---LeetCode Topics End-->
